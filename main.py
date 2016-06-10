@@ -18,7 +18,7 @@ def get_link_video(link):
     fid = re.search(r'\d+', fid, re.M | re.I).group()
 
     # lay token
-    token = re.search(r'\w{96}.*\d{10}', r.text, re.M | re.I).group()
+    token = re.search(r'\w{86,96}.*\d{10}', r.text, re.M | re.I).group()
     token = token.replace('|', '-')
 
     headers = dict()
@@ -27,7 +27,7 @@ def get_link_video(link):
     headers['Accept-Language'] = 'en-US,en;q=0.8,vi;q=0.6'
     headers['Cache-Control'] = 'max-age=0'
     headers['Connection'] = 'keep-alive'
-    headers['Cookie'] = cookie +'; ' + php_sess_id + '; UWatch={"12433":{"ep":"102208","add":1465547236}};'
+    headers['Cookie'] = cookie +'; ' + php_sess_id + ';'
     headers['Host'] = 'hdonline.vn'
     headers['Referer'] = link
     headers['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36'
