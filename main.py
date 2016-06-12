@@ -1,11 +1,25 @@
+#!/usr/bin/python3
+
 import requests
 import re
 import json
 
 
 def get_link_video(link):
-    r = requests.get(link)
+    headers = dict()
+    headers['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    headers['Accept-Encoding'] = 'gzip, deflate, sdch'
+    headers['Accept-Language'] = 'en-US,en;q=0.8,vi;q=0.6'
+    headers['Connection'] = 'keep-alive'
+    headers['Host'] = 'hdonline.vn'
+    headers['Upgrade-Insecure-Requests'] = '1'
+    headers['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36'
+
+    r = requests.get(link, headers=headers)
     r.close()
+
+    # print(r.text)
+    # print(r.headers)
 
     # lay cooie
     cookie = re.search(r'__cfduid=[\w]+', r.headers['Set-Cookie'], re.M | re.I).group()
