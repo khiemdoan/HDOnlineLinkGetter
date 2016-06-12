@@ -5,6 +5,13 @@ import re
 import json
 
 
+def verify_link(link):
+    result = re.match(r'https?:\/\/hdonline.vn\/[\w-]+.html', link, re.M | re.I)
+    if result is None:
+        return False
+    return True
+
+
 def get_link_video(link):
     headers = dict()
     headers['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
@@ -44,7 +51,8 @@ def get_link_video(link):
     headers['Cookie'] = cookie +'; ' + php_sess_id + ';'
     headers['Host'] = 'hdonline.vn'
     headers['Referer'] = link
-    headers['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36'
+    headers[
+        'User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36'
 
     xmlplay_url = 'http://hdonline.vn/frontend/episode/xmlplay?ep=1&fid=' + fid + '&token=' + token + '&format=json'
     r = requests.get(xmlplay_url, headers=headers)
@@ -60,5 +68,8 @@ def get_link_video(link):
 
 if __name__ == "__main__":
     link = input('Enter url: ')
+    if verify_link(link) is False:
+        print('Duong dan khong hop le!')
+        exit()
     link = link.strip()
     get_link_video(link)
